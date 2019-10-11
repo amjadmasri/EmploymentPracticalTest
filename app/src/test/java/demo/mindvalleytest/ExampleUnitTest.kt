@@ -1,4 +1,4 @@
-package comdemo.mindvalleytest
+package demo.mindvalleytest
 
 import org.junit.Test
 
