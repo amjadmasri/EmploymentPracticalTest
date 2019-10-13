@@ -8,8 +8,6 @@ import android.util.Log
 import okhttp3.*
 import java.io.IOException
 import java.lang.ref.WeakReference
-import android.R.string.cancel
-import android.R.attr.tag
 import android.util.Patterns
 
 
@@ -67,7 +65,7 @@ class NetworkRequestManager(val cache:MVLoaderCacheManager):RequestsManager {
     private fun checkImageInCache(imageUrl: String): Bitmap? = cache.imageCache.get(imageUrl)
 
     @Synchronized
-    private fun checkFileInCache(url: String): ByteArray? = cache.fileCache.get(url)
+    private fun checkFileInCache(url: String): ByteArray? = cache.cache.get(url)
 
     private fun invokeSuccessFileCallback(data: ByteArray, loadSuccess:(ByteArray)->Unit) {
         mainHandler.post {
@@ -109,7 +107,7 @@ class NetworkRequestManager(val cache:MVLoaderCacheManager):RequestsManager {
                     if(resourceRequest.isImageRequest)
                         response.body?.bytes()?.let { cache.imageCache.set(resourceRequest.url, scaleBitmapForLoad(it)) }
                     else{
-                        response.body?.bytes()?.let { cache.fileCache.set(resourceRequest.url, it) }
+                        response.body?.bytes()?.let { cache.cache.set(resourceRequest.url, it) }
                     }
                     notifySuccessRequest(resourceRequest.url)
                 }

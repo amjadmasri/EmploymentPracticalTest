@@ -1,22 +1,22 @@
 package com.classic.mvloader
 
+import android.graphics.Bitmap
 import android.os.Build
-import android.util.LruCache
 import androidx.annotation.RequiresApi
 
-class MVLoaderCacheManager(var cacheSize:Int= maxCacheSize) {
+class MVLoaderCacheManager(var cacheSize: Int = MAX_CACHE_SIZE) {
 
-    val imageCache:LRUImageCacheManager= LRUImageCacheManager(cacheSize)
-    val fileCache:LRUFileCacheManager= LRUFileCacheManager(cacheSize)
+    val imageCache: LRUCacheManager<Bitmap> = LRUCacheManager(cacheSize)
+    val cache: LRUCacheManager<ByteArray> = LRUCacheManager(cacheSize)
 
-    companion object{
-        private val maxCacheSize: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt()/8
+    companion object {
+        private val MAX_CACHE_SIZE: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun resize(cacheSize: Int){
+    fun resize(cacheSize: Int) {
         imageCache.resize(cacheSize)
-        fileCache.resize(cacheSize)
+        cache.resize(cacheSize)
     }
 
 }
