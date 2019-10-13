@@ -6,9 +6,8 @@ import android.widget.ImageView
 import androidx.annotation.RequiresApi
 
 
-class MVLoader private constructor(context: Context) {
+class MVLoader private constructor(private var context: Context) {
     companion object : SingletonHolder<MVLoader, Context>(::MVLoader)
-    private var context:Context
     private var networkRequestManager:NetworkRequestManager
 
     /**
@@ -58,7 +57,7 @@ class MVLoader private constructor(context: Context) {
      * each call to the builder will create a new instance of the MVLoader and the client should handle
      * keeping the instances singleton if needed
      */
-    data class Builder(private var context :Context
+    class Builder(private var context :Context
     ,private var cacheSize: Int?=null){
         fun setCacheSize(cacheSize: Int)=apply{this.cacheSize=cacheSize}
 
