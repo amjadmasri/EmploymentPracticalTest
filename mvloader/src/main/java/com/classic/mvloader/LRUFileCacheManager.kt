@@ -6,18 +6,20 @@ import android.util.LruCache
 import androidx.annotation.RequiresApi
 
 
-class LRUCacheManager (cacheSize: Int=DEFAULT_MAX_CACHE_SIZE): CacheManager  {
+class LRUFileCacheManager (cacheSize: Int): CacheManager<String,ByteArray>  {
 
     private var cacheSize:Int
     private var memoryCache: LruCache<String, ByteArray>? = null
 
-    companion object{
-        const val DEFAULT_MAX_CACHE_SIZE=10
-    }
 
     init {
         this.cacheSize=cacheSize
-        memoryCache=LruCache(cacheSize)
+        memoryCache=object : LruCache<String, ByteArray>(cacheSize) {
+            override fun sizeOf(key: String, byte: ByteArray): Int {
+                // The cache size will be measured in kilobytes rather than number of items.
+                return byte.size / 1024
+            }
+        }
     }
     override fun clearAll() {
         memoryCache?.evictAll()
@@ -38,5 +40,9 @@ class LRUCacheManager (cacheSize: Int=DEFAULT_MAX_CACHE_SIZE): CacheManager  {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun resize(cacheSize: Int) {
         memoryCache?.resize(cacheSize)
+    }
+
+    override fun exists(key: String): Boolean {
+        return memoryCache?.get(key)!=null
     }
 }

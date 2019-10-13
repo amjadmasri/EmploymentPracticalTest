@@ -1,10 +1,12 @@
 package com.classic.mvloader
 
 
-interface CacheManager {
+
+interface CacheManager<T,V> {
     fun clearAll()
-    fun get(key:String):ByteArray?
-    fun set(key: String, byteArray: ByteArray)
+    fun get(key:T): V?
+    fun exists(key:T):Boolean
+    fun set(key: T, value: V)
     fun size(): Int
     fun resize(cacheSize:Int)
 
