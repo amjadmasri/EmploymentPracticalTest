@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import demo.mindvalleytest.ImagesListViewModel
+import demo.mindvalleytest.ViewModels.ImagesListViewModel
 import demo.mindvalleytest.dependencyInjection.interfaces.ViewModelKey
 
 @Module

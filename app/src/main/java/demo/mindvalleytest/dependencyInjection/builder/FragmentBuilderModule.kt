@@ -2,7 +2,7 @@ package demo.mindvalleytest.dependencyInjection.builder
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import demo.mindvalleytest.ImagesListFragment
+import demo.mindvalleytest.ui.ImagesListFragment
 
 @Module
 abstract class FragmentBuilderModule {
