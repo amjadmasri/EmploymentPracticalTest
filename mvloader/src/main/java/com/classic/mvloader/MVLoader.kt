@@ -1,16 +1,15 @@
 package com.classic.mvloader
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.os.Build
-import android.util.LruCache
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 
 
 class MVLoader private constructor(context: Context) {
     companion object : SingletonHolder<MVLoader, Context>(::MVLoader)
     private var context:Context
-    private var cacheManager:CacheManager
+    private var networkRequestManager:NetworkRequestManager
 
     /**
      * default constructor used for singleton instance
@@ -18,14 +17,14 @@ class MVLoader private constructor(context: Context) {
      */
     init {
         this.context=context.applicationContext
-        this.cacheManager=LRUCacheManager()
+        this.networkRequestManager= NetworkRequestManager(MVLoaderCacheManager())
     }
 
     /**
      * secondary constructor used by the builder to create instance with custom values
      */
     constructor(context: Context,cacheSize: Int) : this(context) {
-        this.cacheManager=LRUCacheManager(cacheSize)
+        this.networkRequestManager=NetworkRequestManager(MVLoaderCacheManager(cacheSize))
         this.context=context
     }
 
@@ -38,10 +37,21 @@ class MVLoader private constructor(context: Context) {
      */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun setCasheSize(cacheSize:Int) :MVLoader{
-        cacheManager.resize(cacheSize)
+        networkRequestManager.cache.resize(cacheSize)
         return this
     }
 
+    fun loadInto(imageView: ImageView,url:String):String ?{
+        return networkRequestManager.loadInto(imageView,url)
+    }
+
+    fun loadInto(url: String,loadSuccess:(ByteArray)->Unit,loadFailure:(String)->Unit):String ?{
+        return networkRequestManager.loadInto(url, loadSuccess, loadFailure)
+    }
+
+    fun cancelRequest(url: String,requestId:String){
+        networkRequestManager.cancelRequest(url,requestId)
+    }
 
     /**
      * builder class for creating an instance of the MVLoader with custom configurations
