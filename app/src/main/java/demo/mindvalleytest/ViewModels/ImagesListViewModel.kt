@@ -9,7 +9,7 @@ import demo.mindvalleytest.data.repositories.MVImageRepository
 import demo.mindvalleytest.utilities.Resource
 import javax.inject.Inject
 
-class ImagesListViewModel @Inject constructor(private val mvImageRepository: MVImageRepository) : ViewModel() {
+class ImagesListViewModel @Inject constructor( private val mvImageRepository: MVImageRepository) : ViewModel() {
 
     private var pagedMvImagesLocalList: LiveData<Resource<PagedList<MvImagesLocal>>> = MutableLiveData<Resource<PagedList<MvImagesLocal>>>()
 
