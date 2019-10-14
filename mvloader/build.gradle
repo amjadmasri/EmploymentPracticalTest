@@ -5,6 +5,9 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 
     defaultConfig {
         minSdkVersion 19
@@ -33,5 +36,6 @@ dependencies {
     implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'org.mockito:mockito-core:2.24.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
