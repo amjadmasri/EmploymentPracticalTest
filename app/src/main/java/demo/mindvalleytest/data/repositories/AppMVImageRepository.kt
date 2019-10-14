@@ -1,6 +1,5 @@
 package demo.mindvalleytest.data.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
@@ -16,37 +15,39 @@ import io.reactivex.Single
 import retrofit2.Response
 import javax.inject.Inject
 
-class AppMVImageRepository @Inject constructor(private val mvImageApiManager: MVImageApiManager,private val mvImageDbManager: MVImageDbManager):MVImageRepository {
+class AppMVImageRepository @Inject constructor(
+    private val mvImageApiManager: MVImageApiManager,
+    private val mvImageDbManager: MVImageDbManager
+) : MVImageRepository {
 
     override fun getPagedRemotePopularMovieList(page: Int): LiveData<Resource<PagedList<MvImagesLocal>>> {
-       return object: NetworkBoundPagedResource<MvImagesLocal, List<MVImages>>() {
-           override val pagedListConfiguration: PagedList.Config
-               get() = PagedList.Config.Builder()
-                   .setPageSize(10)
-                   .setEnablePlaceholders(true)
-                   .build()
+        return object : NetworkBoundPagedResource<MvImagesLocal, List<MVImages>>() {
+            override val pagedListConfiguration: PagedList.Config
+                get() = PagedList.Config.Builder()
+                    .setPageSize(10)
+                    .setEnablePlaceholders(true)
+                    .build()
 
-           override fun saveCallResult(item: List<MVImages>) :Completable{
-               Log.d("amjad","in save call result ")
-               val localItems:ArrayList<MvImagesLocal> =ArrayList<MvImagesLocal>()
-               for (mvImage:MVImages in item){
-                   localItems.add(MvImageModelMapper.mapRemoteVideoToLocal(mvImage))
-               }
-               Log.d("amjad","in finished loop now array is size "+localItems.size)
-               return mvImageDbManager.insertMvImagesLocalList(localItems)
-           }
+            override fun saveCallResult(item: List<MVImages>): Completable {
 
-           override fun loadFromDb(): DataSource.Factory<Int, MvImagesLocal> {
-              return mvImageDbManager.getPagedMvImagesLocal()
-           }
+                val localItems: ArrayList<MvImagesLocal> = ArrayList<MvImagesLocal>()
+                for (mvImage: MVImages in item) {
+                    localItems.add(MvImageModelMapper.mapRemoteVideoToLocal(mvImage))
+                }
+                return mvImageDbManager.insertMvImagesLocalList(localItems)
+            }
 
-           override fun createCall(pageNumber: Int): Single<Response<List<MVImages>>> {
-             return mvImageApiManager.getMvImagesList()
-           }
+            override fun loadFromDb(): DataSource.Factory<Int, MvImagesLocal> {
+                return mvImageDbManager.getPagedMvImagesLocal()
+            }
 
-           override fun shouldFetch(data: PagedList<MvImagesLocal>?): Boolean {
-               return true
-           }
-       }.asLiveData
+            override fun createCall(pageNumber: Int): Single<Response<List<MVImages>>> {
+                return mvImageApiManager.getMvImagesList()
+            }
+
+            override fun shouldFetch(data: PagedList<MvImagesLocal>?): Boolean {
+                return true
+            }
+        }.asLiveData
     }
 }

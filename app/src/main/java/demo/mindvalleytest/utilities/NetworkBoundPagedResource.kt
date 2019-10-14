@@ -1,12 +1,9 @@
 package demo.mindvalleytest.utilities
 
-import android.os.AsyncTask
-import android.util.Log
 import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.Observer
 import androidx.paging.DataSource
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
@@ -53,7 +50,10 @@ constructor() {
             .setBoundaryCallback(object : PagedList.BoundaryCallback<ResultType>() {
                 override fun onItemAtEndLoaded(itemAtEnd: ResultType) {
                     super.onItemAtEndLoaded(itemAtEnd)
-
+                    /**
+                     * commented because the api doesn't support paging
+                     * the code is able to handle paging with a page number when user reaches the end of the list.
+                     */
                     // pageNumber++
                     //fetchFromNetwork(pageNumber)
                 }
@@ -112,13 +112,20 @@ constructor() {
                 }
 
                 override fun onError(e: Throwable) {
-                    result.addSource(dbSource) { result.setValue(Resource.error(e.localizedMessage,null)) }
+                    result.addSource(dbSource) {
+                        result.setValue(
+                            Resource.error(
+                                e.localizedMessage,
+                                null
+                            )
+                        )
+                    }
                 }
             })
     }
 
     @WorkerThread
-    protected abstract fun saveCallResult(item: RequestType) : Completable
+    protected abstract fun saveCallResult(item: RequestType): Completable
 
     @MainThread
     open fun shouldFetch(data: PagedList<ResultType>?): Boolean {

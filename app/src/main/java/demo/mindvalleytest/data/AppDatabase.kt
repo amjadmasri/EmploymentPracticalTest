@@ -10,7 +10,7 @@ import demo.mindvalleytest.utilities.roomConverters.UserRoomConverter
 
 @Database(entities = [MvImagesLocal::class], version = 1)
 @TypeConverters(value = [URLRoomConverter::class, UserRoomConverter::class])
-abstract class AppDatabase: RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun mvImageDao(): MVImageDao
 }
 

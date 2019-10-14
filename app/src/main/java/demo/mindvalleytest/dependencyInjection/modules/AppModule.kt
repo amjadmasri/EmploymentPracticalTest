@@ -1,6 +1,5 @@
 package demo.mindvalleytest.dependencyInjection.modules
 
-import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.google.gson.Gson
@@ -10,10 +9,10 @@ import dagger.Provides
 import demo.mindvalleytest.MindValleyTestApplication
 import demo.mindvalleytest.data.ApiService
 import demo.mindvalleytest.data.AppDatabase
-import demo.mindvalleytest.data.local.AppMVImageDbManager
-import demo.mindvalleytest.data.local.MVImageDbManager
-import demo.mindvalleytest.data.remote.AppMVImageApiManager
-import demo.mindvalleytest.data.remote.MVImageApiManager
+import demo.mindvalleytest.data.localManagers.AppMVImageDbManager
+import demo.mindvalleytest.data.localManagers.MVImageDbManager
+import demo.mindvalleytest.data.remoteManagers.AppMVImageApiManager
+import demo.mindvalleytest.data.remoteManagers.MVImageApiManager
 import demo.mindvalleytest.data.repositories.AppMVImageRepository
 import demo.mindvalleytest.data.repositories.MVImageRepository
 import demo.mindvalleytest.dependencyInjection.interfaces.ApiUrlInfo
@@ -57,6 +56,7 @@ class AppModule {
     internal fun provideAppDatabase(@DatabaseInfo dbName: String, context: Context): AppDatabase =
         Room.databaseBuilder(context, AppDatabase::class.java, dbName)
             .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
             .build()
 
 

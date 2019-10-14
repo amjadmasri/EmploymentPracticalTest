@@ -1,4 +1,4 @@
-package demo.mindvalleytest.data.remote
+package demo.mindvalleytest.data.remoteManagers
 
 import demo.mindvalleytest.data.models.DTO.MVImages
 import io.reactivex.Single

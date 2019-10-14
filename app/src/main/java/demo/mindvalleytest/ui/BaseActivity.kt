@@ -6,7 +6,7 @@ import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import dagger.android.AndroidInjection
 
-abstract class BaseActivity :AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity() {
 
     @LayoutRes
     abstract fun getLayoutId(): Int
