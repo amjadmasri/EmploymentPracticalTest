@@ -9,10 +9,13 @@ import demo.mindvalleytest.data.models.local.MvImagesLocal
 import io.reactivex.Completable
 
 @Dao
-interface MVImageDao{
+interface MVImageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(imagesLocal: List<MvImagesLocal>): Completable
 
     @Query("SELECT * from mv_images ")
     fun loadPagedMVImages(): DataSource.Factory<Int, MvImagesLocal>
+
+    @Query("SELECT * from mv_images ")
+    fun loadMVImages(): List<MvImagesLocal>
 }
