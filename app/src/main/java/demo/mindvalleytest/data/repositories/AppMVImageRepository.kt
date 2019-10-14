@@ -4,18 +4,15 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.paging.PagedList
-import demo.mindvalleytest.data.local.MVImageDbManager
+import demo.mindvalleytest.data.localManagers.MVImageDbManager
 import demo.mindvalleytest.data.models.DTO.MVImages
 import demo.mindvalleytest.data.models.local.MvImagesLocal
-import demo.mindvalleytest.data.remote.MVImageApiManager
+import demo.mindvalleytest.data.remoteManagers.MVImageApiManager
 import demo.mindvalleytest.utilities.NetworkBoundPagedResource
 import demo.mindvalleytest.utilities.Resource
 import demo.mindvalleytest.utilities.mappers.MvImageModelMapper
 import io.reactivex.Completable
-import io.reactivex.Scheduler
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -47,6 +44,9 @@ class AppMVImageRepository @Inject constructor(private val mvImageApiManager: MV
              return mvImageApiManager.getMvImagesList()
            }
 
+           override fun shouldFetch(data: PagedList<MvImagesLocal>?): Boolean {
+               return true
+           }
        }.asLiveData
     }
 }
