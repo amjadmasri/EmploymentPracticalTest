@@ -1,23 +1,12 @@
-package com.classic.mvloader
+package com.classic.mvloader.memoryCacheManagement
 
-import android.graphics.Bitmap
 import android.os.Build
 import android.util.LruCache
 import androidx.annotation.RequiresApi
 
 
-class LRUCacheManager<T>(private var cacheSize: Int) : CacheManager<String, T> {
-
-    private var memoryCache: LruCache<String, T> =
-        object : LruCache<String, T>(cacheSize) {
-            override fun sizeOf(key: String, value: T): Int {
-                return when (value) {
-                    is ByteArray -> value.size / 1024
-                    is Bitmap -> value.byteCount / 1024
-                    else -> throw ClassCastException()
-                }
-            }
-        }
+class LRUCacheManager<T>(private var memoryCache: LruCache<String, T>) :
+    CacheManager<String, T> {
 
     override fun clearAll() {
         memoryCache.evictAll()
