@@ -14,10 +14,11 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
+    ViewModelModule::class,
     AppModule::class,
     ActivityBuilderModule::class,
-    FragmentBuilderModule::class,
-    ViewModelModule::class
+    FragmentBuilderModule::class
+
 ])
 interface AppComponent : AndroidInjector<MindValleyTestApplication> {
 
