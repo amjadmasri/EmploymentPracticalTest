@@ -18,11 +18,8 @@ class NetworkRequestManager(val cache:MVLoaderCacheManager):RequestsManager {
 
     fun loadInto(imageView: ImageView,url:String):String?{
 
-        require(imageView != null) {
-            "MVLoader:loadInto - ImageView should not be null."
-        }
 
-        require(url != null && url.isNotEmpty() ) {
+        require( url.isNotEmpty() ) {
             "MVLoader:loadInto - Image Url should not be empty"
         }
 
@@ -42,7 +39,7 @@ class NetworkRequestManager(val cache:MVLoaderCacheManager):RequestsManager {
 
     fun loadInto(url: String,loadSuccess:(ByteArray)->Unit,loadFailure:(String)->Unit):String?{
 
-        require(url != null && url.isNotEmpty()) {
+        require( url.isNotEmpty()) {
             "MVLoader:loadInto - resource Url should not be empty"
         }
 
@@ -98,7 +95,7 @@ class NetworkRequestManager(val cache:MVLoaderCacheManager):RequestsManager {
             override fun onFailure(call: Call, e: IOException) {
                 Log.d("TAG","failed ")
                 removeRequestFromMap(resourceRequest)
-                resourceRequest.loadFailure?.invoke(e.localizedMessage)
+                resourceRequest.loadFailure?.invoke(e.localizedMessage!!)
             }
 
             override fun onResponse(call: Call, response: Response) {
