@@ -108,18 +108,8 @@ class AppModule {
             .setDateFormat(dateFormat)
             .create()
 
-    @Provides
-    fun provideMVImageDbManager(mvImageDbManager: AppMVImageDbManager):MVImageDbManager=mvImageDbManager
 
-    @Provides
-    fun provideMVImageApiManager(mvImageApiManager: AppMVImageApiManager):MVImageApiManager=mvImageApiManager
 
-    @Provides
-    fun provideMVImageRepository(mvImageRepository: AppMVImageRepository):MVImageRepository=mvImageRepository
 
-    @Provides
-    fun provideMVImageDiffCallBacks(): MVImageDiffCallBacks {
-        return MVImageDiffCallBacks()
-    }
 
 }

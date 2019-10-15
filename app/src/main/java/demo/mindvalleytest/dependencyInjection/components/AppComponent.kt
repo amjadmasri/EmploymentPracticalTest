@@ -5,8 +5,7 @@ import dagger.Component
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
 import demo.mindvalleytest.MindValleyTestApplication
-import demo.mindvalleytest.dependencyInjection.builder.ActivityBuilderModule
-import demo.mindvalleytest.dependencyInjection.builder.FragmentBuilderModule
+import demo.mindvalleytest.dependencyInjection.builder.*
 import demo.mindvalleytest.dependencyInjection.modules.AppModule
 import demo.mindvalleytest.dependencyInjection.modules.ViewModelModule
 import javax.inject.Singleton
@@ -17,7 +16,10 @@ import javax.inject.Singleton
     ViewModelModule::class,
     AppModule::class,
     ActivityBuilderModule::class,
-    FragmentBuilderModule::class
+    FragmentBuilderModule::class,
+    LocalDBManagersModule::class,
+    RemoteManagersModule::class,
+    RepositoriesModule::class
 
 ])
 interface AppComponent : AndroidInjector<MindValleyTestApplication> {

@@ -28,4 +28,9 @@ class MVImageAdapterModule {
         else
             GridLayoutManager(imagesListFragment.activity, 3)
     }
+
+    @Provides
+    fun provideMVImageDiffCallBacks(): MVImageDiffCallBacks {
+        return MVImageDiffCallBacks()
+    }
 }
