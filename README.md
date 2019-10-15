@@ -9,9 +9,9 @@ Usage :
                 Toast.makeText(context,message,Toast.LENGTH_LONG).show()
             })```
             
-    - Change cache size ``` MVLoader.getInstance(context).setCacheSize(newCacheSize)```
+    - Change maximum cache capacity  ``` MVLoader.getInstance(context).setMaximumCacheCapacity(newMaximumCacheCapacity)```
     - Cancel a requst ``` MVLoader.getInstance(context).cancelRequest("request url",requestId)  ```
 2.  To use the Builder : ``` mvLoader:MVLoader =MVLoader.Builder(context)
-                                                        .setCacheSize(cacheSize)
+                                                        .setMaxCacheCapacity(maxCacheCapacity)
                                                          .build()```
    
