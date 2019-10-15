@@ -47,7 +47,7 @@ class JsonFileFragment : BaseFragment() {
 
         val jsonObserver = Observer<String> { data ->
             context?.let { MVLoader.getInstance(it).loadInto(data,{ bytes ->
-                jsonText.text= String(bytes)
+                jsonText?.text= String(bytes)
             },{ message ->
                 Toast.makeText(context,message,Toast.LENGTH_LONG).show()
             }) }
