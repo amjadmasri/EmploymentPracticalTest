@@ -7,7 +7,16 @@
 
     <fragment
         android:id="@+id/imagesListFragment"
-        android:name="demo.mindvalleytest.ui.ImagesListFragment"
+        android:name="demo.mindvalleytest.ui.imagesList.ImagesListFragment"
         android:label="fragment_images_list"
-        tools:layout="@layout/fragment_images_list" />
+        tools:layout="@layout/fragment_images_list" >
+        <action
+            android:id="@+id/action_imagesListFragment_to_jsonFileFragment"
+            app:destination="@id/jsonFileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/jsonFileFragment"
+        android:name="demo.mindvalleytest.ui.JsonFileDetails.JsonFileFragment"
+        android:label="json_file_fragment"
+        tools:layout="@layout/json_file_fragment" />
 </navigation>
