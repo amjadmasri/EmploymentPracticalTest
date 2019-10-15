@@ -3,6 +3,7 @@ package demo.mindvalleytest.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.classic.mvloader.MVLoader
@@ -28,6 +29,7 @@ class MVImagePagedAdapter(mvImageDiffCallBacks: MVImageDiffCallBacks) :PagedList
         LayoutInflater.from(parent.context).inflate(R.layout.image_list_item, parent, false)) {
 
         private val imageView = itemView.findViewById<ImageView>(R.id.imageView)
+        private val nameText=itemView.findViewById<TextView>(R.id.userName)
         var mvImagesLocal: MvImagesLocal? = null
 
 
@@ -37,6 +39,8 @@ class MVImagePagedAdapter(mvImageDiffCallBacks: MVImageDiffCallBacks) :PagedList
             mvImagesLocal?.urls?.regular?.let {
                 MVLoader.getInstance(imageView.context).loadInto(imageView, it)
             }
+
+            nameText.text= mvImagesLocal?.user?.username ?: ""
         }
 
     }
