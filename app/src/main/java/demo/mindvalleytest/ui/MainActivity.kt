@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import demo.mindvalleytest.R
+import demo.mindvalleytest.ui.base.BaseActivity
 
 
 class MainActivity : BaseActivity() {

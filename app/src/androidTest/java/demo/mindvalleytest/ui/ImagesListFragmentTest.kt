@@ -9,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import demo.mindvalleytest.R
+import demo.mindvalleytest.ui.imagesList.ImagesListFragment
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule

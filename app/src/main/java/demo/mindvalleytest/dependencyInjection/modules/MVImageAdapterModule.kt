@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import dagger.Module
 import dagger.Provides
 import demo.mindvalleytest.R
-import demo.mindvalleytest.ui.ImagesListFragment
+import demo.mindvalleytest.ui.imagesList.ImagesListFragment
 import demo.mindvalleytest.ui.adapters.MVImagePagedAdapter
 import demo.mindvalleytest.utilities.MVImageDiffCallBacks
 

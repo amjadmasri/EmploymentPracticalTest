@@ -1,4 +1,4 @@
-package demo.mindvalleytest.ui
+package demo.mindvalleytest.ui.base
 
 import android.content.Context
 import android.os.Bundle

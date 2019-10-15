@@ -1,21 +1,13 @@
 package demo.mindvalleytest
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
-import androidx.paging.PagedList
-import demo.mindvalleytest.data.models.local.MvImagesLocal
 import demo.mindvalleytest.data.repositories.MVImageRepository
-import demo.mindvalleytest.viewModels.ImagesListViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.newSingleThreadContext
-import org.junit.After
-import org.junit.Before
+import demo.mindvalleytest.ui.imagesList.ImagesListViewModel
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
