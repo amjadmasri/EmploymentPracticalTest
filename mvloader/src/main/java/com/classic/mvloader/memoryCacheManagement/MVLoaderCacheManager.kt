@@ -9,14 +9,14 @@ import androidx.annotation.RequiresApi
  * A holder object for two types of memory caches
  * Image memory cache that holds the images decoded and scaled bitmaps
  * File memory cache that holds the files as their ByteArray representation
- * @property cacheSize Int
+ * @property maxCacheCapacity Int
  * @property imageCache LRUCacheManager<Bitmap>
  * @property cache LRUCacheManager<ByteArray>
  * @property imageMemoryCache LruCache<String, Bitmap>
  * @property resourceMemoryCache LruCache<String, ByteArray>
  * @constructor
  */
-class MVLoaderCacheManager(var cacheSize: Int = MAX_CACHE_SIZE) {
+class MVLoaderCacheManager(var maxCacheCapacity: Int = MAX_CACHE_CAPACITY) {
 
     val imageCache: LRUCacheManager<Bitmap> by lazy {
         LRUCacheManager(
@@ -34,7 +34,7 @@ class MVLoaderCacheManager(var cacheSize: Int = MAX_CACHE_SIZE) {
 
     init {
         imageMemoryCache =
-            object : LruCache<String, Bitmap>(cacheSize) {
+            object : LruCache<String, Bitmap>(maxCacheCapacity) {
                 override fun sizeOf(key: String, value: Bitmap): Int {
                     return value.byteCount / 1024
 
@@ -42,7 +42,7 @@ class MVLoaderCacheManager(var cacheSize: Int = MAX_CACHE_SIZE) {
             }
 
         resourceMemoryCache =
-            object : LruCache<String, ByteArray>(cacheSize) {
+            object : LruCache<String, ByteArray>(maxCacheCapacity) {
                 override fun sizeOf(key: String, value: ByteArray): Int {
                     return value.size / 1024
 
@@ -52,13 +52,13 @@ class MVLoaderCacheManager(var cacheSize: Int = MAX_CACHE_SIZE) {
     }
 
     companion object {
-        private val MAX_CACHE_SIZE: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8
+         val MAX_CACHE_CAPACITY: Int = (Runtime.getRuntime().maxMemory() / 1024).toInt() / 8
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun resize(cacheSize: Int) {
-        imageCache.resize(cacheSize)
-        cache.resize(cacheSize)
+    fun resize(maxCacheCapacity: Int) {
+        imageCache.resize(maxCacheCapacity)
+        cache.resize(maxCacheCapacity)
     }
 
 }

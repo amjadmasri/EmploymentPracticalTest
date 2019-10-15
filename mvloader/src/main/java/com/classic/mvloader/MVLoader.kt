@@ -31,25 +31,25 @@ class MVLoader private constructor(private var context: Context) {
     /**
      * secondary constructor used by the builder
      * @param context Context
-     * @param cacheSize Int
+     * @param maxCacheCapacity Int
      * @constructor
      */
-    constructor(context: Context, cacheSize: Int) : this(context) {
+    constructor(context: Context, maxCacheCapacity: Int) : this(context) {
         this.networkRequestManager = NetworkRequestManager(
             MVLoaderCacheManager(
-                cacheSize
+                maxCacheCapacity
             )
         )
     }
 
     /**
      * reconfigure the Singleton instance cache size
-     * @param cacheSize Int
+     * @param maxCacheCapacity Int
      * @return MVLoader
      */
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-    fun setCacheSize(cacheSize: Int): MVLoader {
-        networkRequestManager.cache.resize(cacheSize)
+    fun setMaximumCacheCapacity(maxCacheCapacity: Int): MVLoader {
+        networkRequestManager.cache.resize(maxCacheCapacity)
         return this
     }
 
@@ -93,17 +93,17 @@ class MVLoader private constructor(private var context: Context) {
      * customizable MVLoader builder
      * each call to the builder returns a new Instance and not a singleton instance
      * @property context Context
-     * @property cacheSize Int?
+     * @property maxCacheCapacity Int?
      * @constructor
      */
     class Builder(
         private var context: Context
-        , private var cacheSize: Int? = null
+        , private var maxCacheCapacity: Int? = null
     ) {
-        fun setCacheSize(cacheSize: Int) = apply { this.cacheSize = cacheSize }
+        fun setMaxCacheCapacity(maxCacheCapacity: Int) = apply { this.maxCacheCapacity = maxCacheCapacity }
 
         fun build(): MVLoader {
-            return MVLoader(context, cacheSize ?: 10)
+            return MVLoader(context, maxCacheCapacity ?: MVLoaderCacheManager.MAX_CACHE_CAPACITY)
         }
     }
 }
