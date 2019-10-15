@@ -11,6 +11,7 @@ import com.classic.mvloader.utilities.SingletonHolder
 /**
  * MVLoader can load an image resource into an image view or a generic resource and getting the ByteArray as a result
  * MVLoader caches images and generic resources efficiently
+ * note: context is not used now, but left for the possibility of having diskCache in the future which would need a context instance
  * @property context Context
  * @property networkRequestManager NetworkRequestManager
  * @constructor
