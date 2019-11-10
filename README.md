@@ -1,5 +1,4 @@
-# MindValleyPracticalTest
-practical test for MindValley application process 
+# Simple Image Loading Library
 Usage :
 1. To get the singleton instance :
     - Image ```var requestId =MVLoader.getInstance(context).loadInto(imageView,"your url here")```
